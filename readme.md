@@ -1,5 +1,8 @@
 # Three.js Journey
 
+## 3D Speech Recogniton
+An early-stage experiment of altering a 3D rendered scene using speech recognition via the Web Speech API
+
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
 Run this followed commands:
