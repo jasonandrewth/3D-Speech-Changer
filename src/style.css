@@ -23,13 +23,14 @@ ul {
 }
 
 header {
-  position: fixed;
   display: flex;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 90vw;
+  margin: auto;
   align-items: center;
   justify-content: space-between;
+  padding: 0 32px;
 }
 
 .shower {
@@ -107,6 +108,9 @@ canvas {
 }
 
 @media(max-width: 600px) {
+  header {
+    padding: 0 16px;
+  }
   h1 {
     font-size: 18px;
   }
