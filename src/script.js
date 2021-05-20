@@ -179,9 +179,7 @@ const listener = document.querySelector('.listen');
 toggleTag.addEventListener("click", () => {
   hints.classList.toggle("show")
 })
-toggleTag.addEventListener("touchend", () => {
-  hints.classList.toggle("show")
-})
+
 
 var colorHTML= '';
 colors.forEach( v => {
@@ -196,11 +194,6 @@ listener.addEventListener("click", function(event) {
     event.preventDefault
 })
 
-listener.addEventListener("touchend", function(event) {
-  recognition.start();
-  console.log('Ready to receive a color command.');
-  event.preventDefault
-})
 
 recognition.onresult = function(event) {
   // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
