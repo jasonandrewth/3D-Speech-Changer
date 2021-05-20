@@ -179,7 +179,7 @@ const listener = document.querySelector('.listen');
 toggleTag.addEventListener("click", () => {
   hints.classList.toggle("show")
 })
-toggleTag.addEventListener("touch", () => {
+toggleTag.addEventListener("touchstart", () => {
   hints.classList.toggle("show")
 })
 
@@ -196,7 +196,7 @@ listener.addEventListener("click", function(event) {
     event.preventDefault
 })
 
-listener.addEventListener("touch", function(event) {
+listener.addEventListener("touchstart", function(event) {
   recognition.start();
   console.log('Ready to receive a color command.');
   event.preventDefault
