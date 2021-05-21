@@ -1,5 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
+import { TweenMax } from "gsap";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 
@@ -25,6 +26,9 @@ if (isIOSChrome) {
   console.log("not chrome")
 }
 
+
+//Hold initial color
+let cubeColor ="#d4af37"
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -52,7 +56,7 @@ scene.add(floor)
 const addBox = function () {
     const geometry = new THREE.BoxGeometry(1, 1, 1)
     const material = new THREE.MeshStandardMaterial({
-      color: 0xd4af37,
+      color: new THREE.Color(cubeColor),
       metalness: 0.4,
       roughness: 0.3
     })
@@ -158,7 +162,7 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
 
-var colors = [ 'aqua' , 'azure' , 'beige', 'bisque', 'black', 'blue', 'brown', 'chocolate', 'coral', 'crimson', 'cyan', 'fuchsia', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'indigo', 'ivory', 'khaki', 'lavender', 'lime', 'linen', 'magenta', 'maroon', 'moccasin', 'navy', 'olive', 'orange', 'orchid', 'peru', 'pink', 'plum', 'purple', 'red', 'salmon', 'sienna', 'silver', 'snow', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'white', 'yellow'];
+var colors = [ 'aqua' , 'azure' , 'beige', 'bisque', 'black', 'blue', 'brown', 'chocolate', 'coral', 'crimson', 'cyan', 'fuchsia', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'indigo', 'ivory', 'khaki', 'lavender', 'lime', 'linen', 'magenta', 'maroon', 'moccasin', 'navy', 'olive', 'orange', 'orchid', 'peru', 'pink', 'plum', 'purple', 'red', 'salmon', 'sapphire', 'sienna', 'silver', 'snow', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'white', 'yellow'];
 var grammar = '#JSGF V1.0; grammar colors; public <color> = ' + colors.join(' | ') + ' ;'
 
 var recognition = new SpeechRecognition();
@@ -207,12 +211,26 @@ recognition.onresult = function(event) {
   diagnostic.textContent = 'Result received: ' + color + '.';
   // console.log(color)
   // bg.style.backgroundColor = color;
-  const material = new THREE.MeshStandardMaterial({
+  let transition = { color: cubeColor }
+
+  TweenMax.to(transition, 1, {
     color: color,
-    metalness: 0.4,
-    roughness: 0.3
+    onUpdate: () => {
+      if (color) {
+        cubeColor = color
+      } else {
+        cubeColor = cubeColor
+      }
+      const material = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(transition.color),
+        metalness: 0.4,
+        roughness: 0.3
+      })
+      box.material = material
+
+    }
   })
-  box.material = material
+  
   // console.log('Confidence: ' + event.results[0][0].confidence);
 }
 
